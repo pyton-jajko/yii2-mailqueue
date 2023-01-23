@@ -8,6 +8,7 @@
 namespace nterms\mailqueue;
 
 use Yii;
+use yii\helpers\Console;
 use yii\swiftmailer\Mailer;
 use nterms\mailqueue\Message;
 use nterms\mailqueue\models\Queue;
@@ -69,8 +70,8 @@ class MailQueue extends Mailer
 	 * @var integer maximum number of attempts to try sending an email out.
 	 */
 	public $maxAttempts = 3;
-	
-	
+
+
 	/**
 	 * @var boolean Purges messages from queue after sending
 	 */
@@ -94,27 +95,34 @@ class MailQueue extends Mailer
 		if (Yii::$app->db->getTableSchema($this->table) == null) {
 			throw new \yii\base\InvalidConfigException('"' . $this->table . '" not found in database. Make sure the db migration is properly done and the table is created.');
 		}
-		
+
 		$success = true;
 
 		$items = Queue::find()->where(['and', ['sent_time' => NULL], ['<', 'attempts', $this->maxAttempts], ['<=', 'time_to_send', date('Y-m-d H:i:s')]])->orderBy(['created_at' => SORT_ASC])->limit($this->mailsPerRound);
 		foreach ($items->each() as $item) {
-		    if ($message = $item->toMessage()) {
-			$attributes = ['attempts', 'last_attempt_time'];
-			if ($this->send($message)) {
-			    $item->sent_time = new \yii\db\Expression('NOW()');
-			    $attributes[] = 'sent_time';
-			} else {
-			    $success = false;
-			}
+            try {
+                if ($message = $item->toMessage()) {
+                    $attributes = ['attempts', 'last_attempt_time'];
+                    if ($this->send($message)) {
+                        $item->sent_time = new \yii\db\Expression('NOW()');
+                        $attributes[] = 'sent_time';
+                    } else {
+                        $success = false;
+                    }
 
-			$item->attempts++;
-			$item->last_attempt_time = new \yii\db\Expression('NOW()');
+                    $item->attempts++;
+                    $item->last_attempt_time = new \yii\db\Expression('NOW()');
 
-			$item->updateAttributes($attributes);
-		    }
+                    $item->updateAttributes($attributes);
+                }
+            } catch (\Exception $e) {
+                $item->is_broken = true;
+                $item->error_message = $e->getMessage();
+                $item->updateAttributes(['error_message', 'is_broken']);
+                Console::error($e->getMessage() . '. Check console/runtime/app.log');
+            }
 		}
-	
+
 		// Purge messages now?
 		if ($this->autoPurge) {
 			$this->purge();
@@ -122,14 +130,14 @@ class MailQueue extends Mailer
 
 		return $success;
 	}
-	
-	
+
+
 	/**
 	 * Deletes sent messages from queue.
 	 *
 	 * @return int Number of rows deleted
 	 */
-	
+
 	public function purge()
 	{
 		return Queue::deleteAll('sent_time IS NOT NULL');

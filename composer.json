@@ -1,27 +1,39 @@
 {
-	"name": "nterms/yii2-mailqueue",
-	"description": "Email queue component for yii2 that works with yii2-swiftmailer.",
-	"keywords": ["yii2", "extension", "component", "email", "queue", "swiftmailer", "yii2-swiftmailer"],
-	"homepage": "https://github.com/nterms/yii2-mailqueue",
-	"type": "yii2-extension",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "Saranga Abeykoon",
-			"email": "amisaranga@gmail.com",
-			"homepage": "http://nterms.com/"
-		}
-	],
-	"require": {
-		"yiisoft/yii2": "*",
-		"yiisoft/yii2-swiftmailer": "~2.1.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"nterms\\mailqueue\\": ""
-		}
-	},
-        "extra": {
-            "bootstrap": "nterms\\mailqueue\\Bootstrap"            
-        }
+  "name": "pyton-jajko/yii2-mailqueue",
+  "description": "Enchanced email queue component for yii2 that works with yii2-swiftmailer.",
+  "keywords": [
+    "yii2",
+    "extension",
+    "component",
+    "email",
+    "queue",
+    "swiftmailer",
+    "yii2-swiftmailer"
+  ],
+  "homepage": "https://github.com/nterms/yii2-mailqueue",
+  "type": "yii2-extension",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Saranga Abeykoon",
+      "email": "amisaranga@gmail.com",
+      "homepage": "http://nterms.com/"
+    },
+    {
+      "name": "Michał Pyzara",
+      "email": "pyzara.michal@gmail.com"
+    }
+  ],
+  "require": {
+    "yiisoft/yii2": "2.0.47",
+    "yiisoft/yii2-swiftmailer": "~2.1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "nterms\\mailqueue\\": ""
+    }
+  },
+  "extra": {
+    "bootstrap": "nterms\\mailqueue\\Bootstrap"
+  }
 }
