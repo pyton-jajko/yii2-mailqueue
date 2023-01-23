@@ -1,11 +1,11 @@
 <?php
 
-namespace nterms\mailqueue\migrations;
+namespace yayko\mailqueue\migrations;
 
 use Yii;
 use yii\db\Schema;
 use yii\db\Migration;
-use nterms\mailqueue\MailQueue;
+use yayko\mailqueue\MailQueue;
 
 class m171351_083901_add_is_broken_field extends Migration
 {

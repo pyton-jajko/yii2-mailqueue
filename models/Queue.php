@@ -1,11 +1,11 @@
 <?php
 
-namespace nterms\mailqueue\models;
+namespace yayko\mailqueue\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use nterms\mailqueue\MailQueue;
-use nterms\mailqueue\Message;
+use yayko\mailqueue\MailQueue;
+use yayko\mailqueue\Message;
 
 /**
  * This is the model class for table "{{%mail_queue}}".

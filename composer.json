@@ -1,5 +1,5 @@
 {
-  "name": "pyton-jajko/yii2-mailqueue",
+  "name": "yayko/yii2-mailqueue",
   "description": "Enchanced email queue component for yii2 that works with yii2-swiftmailer.",
   "keywords": [
     "yii2",
@@ -10,7 +10,7 @@
     "swiftmailer",
     "yii2-swiftmailer"
   ],
-  "homepage": "https://github.com/nterms/yii2-mailqueue",
+  "homepage": "https://github.com/pyton-jajko/yii2-mailqueue",
   "type": "yii2-extension",
   "license": "MIT",
   "authors": [
@@ -30,10 +30,10 @@
   },
   "autoload": {
     "psr-4": {
-      "nterms\\mailqueue\\": ""
+      "yayko\\mailqueue\\": ""
     }
   },
   "extra": {
-    "bootstrap": "nterms\\mailqueue\\Bootstrap"
+    "bootstrap": "yayko\\mailqueue\\Bootstrap"
   }
 }

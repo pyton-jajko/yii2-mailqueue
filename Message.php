@@ -3,12 +3,13 @@
 /**
  * Message.php
  * @author Saranga Abeykoon http://nterms.com
+ * @author Michał Pyzra https://github.com/pyton-jajko
  */
 
-namespace nterms\mailqueue;
+namespace yayko\mailqueue;
 
 use Yii;
-use nterms\mailqueue\models\Queue;
+use yayko\mailqueue\models\Queue;
 
 /**
  * Extends `yii\swiftmailer\Message` to enable queuing.
