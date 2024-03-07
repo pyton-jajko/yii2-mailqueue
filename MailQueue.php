@@ -79,6 +79,11 @@ class MailQueue extends Mailer
 	public $autoPurge = true;
 
 	/**
+	 * @var boolean Error reporting scope on running mailqueue/process
+	 */
+	public $errorReporting = null;
+
+	/**
 	 * Initializes the MailQueue component.
 	 */
 	public function init()
@@ -93,6 +98,9 @@ class MailQueue extends Mailer
 	 */
 	public function process()
 	{
+		if ($this->errorReporting !== null) {
+	            error_reporting($this->errorReporting);
+	        }
 		if (Yii::$app->db->getTableSchema($this->table) == null) {
 			throw new \yii\base\InvalidConfigException('"' . $this->table . '" not found in database. Make sure the db migration is properly done and the table is created.');
 		}
